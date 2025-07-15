@@ -1,0 +1,44 @@
+{{ define "admin.tmpl" }}
+<!doctype html><html><body>
+<h1>Admin – Buchungen</h1>
+
+<p>
+  <a href="/admin?status=all">Alle</a> |
+  <a href="/admin?status=confirmed">Bestätigt</a> |
+  <a href="/admin?status=pending">Offen</a> |
+  <a href="/admin?status=expired">Abgelaufen</a>
+</p>
+
+<table border="1" cellpadding="4">
+  <tr>
+    <th>ID</th><th>Zeit</th><th>Pers.</th><th>Status</th>
+    <th>Mail</th><th>Kommentar</th><th>Aktion</th>
+  </tr>
+  {{ range .list }}
+  <tr>
+    <td>{{ .ID }}</td>
+    <td>{{ .BookingTime.Format "02.01.2006 15:04" }}</td>
+    <td>{{ .Persons }}</td>
+    <td>{{ .Status }}</td>
+    <td>{{ .Email }}</td>
+    <td>{{ .Comment }}</td>
+    <td>
+      {{ if eq .Status "confirmed" }}
+      <form method="POST" action="/admin/cancel/{{ .ID }}">
+        <button>Stornieren</button>
+      </form>
+      {{ end }}
+    </td>
+  </tr>
+  {{ end }}
+</table>
+
+<p>
+  Seite {{ .page }} ·
+  <a href="/admin?status={{ .status }}&page={{ add .page -1 }}">« vor</a> | 
+  <a href="/admin?status={{ .status }}&page={{ add .page 1 }}">weiter »</a>
+</p>
+
+<p><a href="/logout">Logout</a></p>
+</body></html>
+{{ end }}
