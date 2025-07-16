@@ -4,7 +4,6 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
-	"go/ast"
 	"net/http"
 	"restaurant_booking/internal/auth"
 )

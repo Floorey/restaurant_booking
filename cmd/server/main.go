@@ -53,6 +53,7 @@ func main() {
 
 	handler.RegisterWeb(r, db)
 	handler.RegisterAdmin(r.Group("/admin"), db)
+	handler.RequireAuth(r, db)
 
 	srv := &http.Server{
 		Addr:        ":8080",
